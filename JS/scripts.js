@@ -216,11 +216,19 @@ function closeResume() {
     else {
         document.querySelector('.no_item').remove();
     }
+
+    userNameValidation();
+    userTelValidation();
+    zipCodeValidation();
+    numberAddressValidation();
 }
 
 function userNameValidation() {
     let userName = document.querySelector('#name_input');
     userName.value = userName.value.replace(/\d/g, '')
+    if(userName.classList.contains('required_field')){
+        userName.classList.remove('required_field')
+    }
 }
 
 function userTelValidation() {
@@ -229,6 +237,9 @@ function userTelValidation() {
     tel.value = tel.value.replace(/\D/g, '')
     tel.value = tel.value.replace(/(\d{2})(\d)/, "($1) $2")
     tel.value = tel.value.replace(/(\d{5})(\d)/, "$1-$2")
+    if(tel.classList.contains('required_field')){
+        tel.classList.remove('required_field')
+    }
 }
 
 async function zipSearch() {
@@ -277,24 +288,82 @@ function zipCodeValidation() {
 
     cep.value = cep.value.replace(/\D/g, '')
     cep.value = cep.value.replace(/(\d{5})(\d)/, '$1-$2')
+    cep.classList.remove('required_field');
+}
+
+function numberAddressValidation(){
+    let numero = document.getElementById('numero');
+
+    numero.value = numero.value.replace(/\D/g, '');
+    numero.value = numero.value.replace(/(\d{5})(\d)/, '$1-$2');
+    numero.classList.remove('required_field');
 }
 
 function finalizeOrder() {
     const alert = document.querySelector('.alert_finalize');
     const products = document.querySelectorAll('.item_resume');
     const payMethod = document.querySelector('.radio_method:checked');
-    const userName = document.querySelector('#name_input').value;
-    const userTel = document.querySelector('#tel_input').value;
+    const userName = document.querySelector('#name_input');
+    const userTel = document.querySelector('#tel_input');
     const deliveryMethod = document.querySelector('.radio_delivery:checked')
+    const cep = document.querySelector('#cep');
+    const estado = document.querySelector('#estado');
+    const logradouro = document.querySelector('#logradouro');
+    const numero = document.querySelector('#numero');
+    const bairro = document.querySelector('#bairro');
+    const cidade = document.querySelector('#cidade');
     let productsData = [];
     let i = 0;
 
-    console.log(products)
-    if (products.length < 1 || userName.value === '' || userTel === '') {
+    if (products.length < 1) {
+        alert.textContent = "Não há produtos no pedido!"
         alert.classList.add('alert_finalize_show');
-        setTimeout( ()=>{
+        setTimeout(() => {
             alert.classList.remove('alert_finalize_show');
-        }, 2000)
+        }, 2000);
+
+    }
+    else if(userName.value === '' || userTel.value === ''){
+        alert.textContent = "Por favor preencha suas informações corretamente!"
+        alert.classList.add('alert_finalize_show');
+        setTimeout(() => {
+            alert.classList.remove('alert_finalize_show');
+        }, 2000);
+
+        if(userName.value === ''){
+            userName.classList.add('required_field');
+        }
+        else{
+            userName.classList.remove('required_field');
+        }
+
+        if(userTel.value === ''){
+            userTel.classList.add('required_field');
+        }
+        else{
+            userTel.classList.remove('required_field');
+        }
+    }
+    else if(cep.value === '' || numero.value === ''){
+        alert.textContent = "Por favor preencha seu endereço corretamente!"
+        alert.classList.add('alert_finalize_show');
+        setTimeout(() => {
+            alert.classList.remove('alert_finalize_show');
+        }, 2000);
+
+        if(cep.value === ''){
+            cep.classList.add('required_field');
+        }
+        else{
+            cep.classList.remove('required_field');
+        }
+
+        if(numero.value === ''){
+            numero.classList.add('required_field');
+        }
+        else{
+            numero.classList.remove('required_field');
+        }
     }
     else {
         products.forEach(product => {
@@ -311,13 +380,6 @@ function finalizeOrder() {
         console.log(payMethod.closest('.method').textContent.trim().replace(/[\r\n]+/g, ''))
 
         if (deliveryMethod.id === 'entrega') {
-            const cep = document.querySelector('#cep').value;
-            const estado = document.querySelector('#estado').value;
-            const logradouro = document.querySelector('#logradouro').value;
-            const numero = document.querySelector('#numero').value;
-            const bairro = document.querySelector('#bairro').value;
-            const cidade = document.querySelector('#cidade').value;
-
             console.log(cep, estado, logradouro, numero, bairro, cidade)
         }
         else {
@@ -339,4 +401,5 @@ document.getElementById('tel_input').addEventListener('input', userTelValidation
 document.getElementById('cep').addEventListener('focusout', zipSearch);
 document.getElementById('cep').addEventListener('touchend', zipSearch);
 document.getElementById('cep').addEventListener('input', zipCodeValidation);
+document.getElementById('numero').addEventListener('input', numberAddressValidation);
 window.addEventListener('scroll', finalizeButtonPosition);
