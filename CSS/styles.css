@@ -550,6 +550,17 @@ hr {
     margin-bottom: 10px;
 }
 
+.finalize_resume_content .no_item{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    padding: 0 5px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
 .finalize_resume_content .item_resume .item_name{
     width: calc(100% - 128px);
     min-width: 120px;
@@ -705,12 +716,44 @@ hr {
 }
 
 .finalize_resume_content .finalize_button{
+    position: relative;
     width: 98%;
     height: 40px;
     margin: 10px auto;
     background: #FABF02;
     border: 2px solid #000;
     border-radius: 5px;
+}
+
+.finalize_resume_content .finalize_button .alert_finalize{
+    display: block;
+    position: absolute;
+    background-color: #FABF02;
+    padding: 10px;
+    border: 1px solid black;
+    z-index: -9999;
+    top: -45px;
+    left: 0;
+    opacity: 0;
+    transition: all 0.25s;
+}
+
+.finalize_resume_content .finalize_button .alert_finalize::after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #000;
+    bottom: -10px;
+    left: 0;
+    border-color: transparent transparent black transparent;
+}
+
+.alert_finalize_show{
+    opacity: 1 !important;
+    z-index: 9999 !important;
 }
 
 .finalize_resume_content .finalize_button a{

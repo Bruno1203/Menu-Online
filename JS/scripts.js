@@ -103,7 +103,6 @@ function resumeFinalize() {
     const resumeOrder = document.getElementById("finalize_resume");
     const resumeOrderContent = document.getElementById("finalize_resume_content");
     const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    const closeButton = document.getElementById('close_button');
 
     blurEffect.classList.remove('invisible');
     resumeOrder.classList.remove('invisible');
@@ -159,7 +158,7 @@ function resumeFinalize() {
 
             if (itens.length == 0) {
                 let divElement = document.createElement("div");
-                divElement.classList.add('item_resume');
+                divElement.classList.add('no_item');
                 divElement.innerHTML = '<p class="item_empty">Sem itens no seu Pedido</p>';
                 resumeOrderContent.insertBefore(divElement, document.getElementById('total_value'));
             }
@@ -200,18 +199,24 @@ function resumeFinalize() {
             }
         })
     }
+}
 
-    closeButton.addEventListener('click', () => {
-        blurEffect.classList.add('invisible');
-        resumeOrder.classList.add('invisible');
-        document.body.classList.remove('scroll_lock');
-        itens = resumeOrder.querySelectorAll('.item_resume');
+function closeResume() {
+    const blurEffect = document.getElementById("body_blur");
+    const resumeOrder = document.getElementById("finalize_resume");
+    blurEffect.classList.add('invisible');
+    resumeOrder.classList.add('invisible');
+    document.body.classList.remove('scroll_lock');
+    itens = resumeOrder.querySelectorAll('.item_resume');
+    if (itens.length >= 1) {
         Array.from(itens).forEach(item => {
             item.remove();
         });
-    });
+    }
+    else {
+        document.querySelector('.no_item').remove();
+    }
 }
-
 
 function userNameValidation() {
     let userName = document.querySelector('#name_input');
@@ -274,7 +279,8 @@ function zipCodeValidation() {
     cep.value = cep.value.replace(/(\d{5})(\d)/, '$1-$2')
 }
 
-function finalizeOrder(){
+function finalizeOrder() {
+    const alert = document.querySelector('.alert_finalize');
     const products = document.querySelectorAll('.item_resume');
     const payMethod = document.querySelector('.radio_method:checked');
     const userName = document.querySelector('#name_input').value;
@@ -283,34 +289,38 @@ function finalizeOrder(){
     let productsData = [];
     let i = 0;
 
-    if(products.length < 1 && userName.value === '' && userTel === ''){
-        console.log('testeeee')
+    console.log(products)
+    if (products.length < 1 || userName.value === '' || userTel === '') {
+        alert.classList.add('alert_finalize_show');
+        setTimeout( ()=>{
+            alert.classList.remove('alert_finalize_show');
+        }, 2000)
     }
-    else{
-        products.forEach(product =>{
+    else {
+        products.forEach(product => {
             const product_name = product.querySelector('.item_name').textContent;
             const product_value = product.querySelector('.item_value').textContent.replace(/\D{2}/, '').replace(',', '.') * 1;
             const product_qtde = product.querySelector('.item_qtde').querySelector('#qtde').value * 1;
             const product_total_value = 'R$' + (product_value * product_qtde).toFixed(2)
-    
-            productsData.push([product_name, product_value.toFixed(2).replace('.' , ','), product_qtde, product_total_value.replace('.' , ',')]);
+
+            productsData.push([product_name, product_value.toFixed(2).replace('.', ','), product_qtde, product_total_value.replace('.', ',')]);
             i++;
         })
-        
+
         console.log(productsData[0]);
         console.log(payMethod.closest('.method').textContent.trim().replace(/[\r\n]+/g, ''))
-        
-        if (deliveryMethod.id === 'entrega'){
+
+        if (deliveryMethod.id === 'entrega') {
             const cep = document.querySelector('#cep').value;
             const estado = document.querySelector('#estado').value;
             const logradouro = document.querySelector('#logradouro').value;
             const numero = document.querySelector('#numero').value;
             const bairro = document.querySelector('#bairro').value;
             const cidade = document.querySelector('#cidade').value;
-    
+
             console.log(cep, estado, logradouro, numero, bairro, cidade)
         }
-        else{
+        else {
             console.log('Retirada no Local')
         }
     }
@@ -322,6 +332,7 @@ document.getElementById('hamburguer_button').addEventListener('click', menuHambu
 document.getElementById('menu_click_block').addEventListener('click', menuHamburguerOpen);
 document.getElementById('button_top_return').addEventListener('click', topReturn);
 document.getElementById('order_button').addEventListener('click', resumeFinalize);
+document.getElementById('close_button').addEventListener('click', closeResume);
 document.getElementById('finalize_button').addEventListener('click', finalizeOrder);
 document.getElementById('name_input').addEventListener('input', userNameValidation)
 document.getElementById('tel_input').addEventListener('input', userTelValidation)
