@@ -21,7 +21,6 @@ function expandButtonAnimationOnClick() {
         expandButton.addEventListener('click', function () {
             expandButtonStick = productSelection[i].getElementsByClassName('expand_stick');
             expandButtonStick[0].classList.toggle('close_expand_stick');
-            expandButtonStick[1].classList.toggle('close_expand_stick_opacity');
 
             productList = productSelection[i].querySelector('#product_list');
             productList.classList.toggle('product_list_close_animation');
