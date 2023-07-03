@@ -6,7 +6,8 @@
     font-family: 'Lilita One', cursive, sans-serif;
 }
 
-html,body {
+html,
+body {
     position: relative;
     width: 100%;
 }
@@ -23,7 +24,7 @@ body.scroll_lock {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;   
+    width: 100%;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(8px);
@@ -340,7 +341,7 @@ main {
     font-size: 1rem;
 }
 
-.product label img{
+.product label img {
     width: 64px;
     height: 64px;
 }
@@ -516,12 +517,16 @@ hr {
     overflow-y: scroll;
 }
 
-.finalize_resume_content h3{
+.finalize_resume_content::-webkit-scrollbar {
+    width: 0;
+}
+
+.finalize_resume_content h3 {
     align-self: center;
     margin: 20px 0
 }
 
-.finalize_resume_content .close_button{
+.finalize_resume_content .close_button {
     position: absolute;
     top: 14px;
     right: 12px;
@@ -533,7 +538,7 @@ hr {
     height: 32px;
 }
 
-.finalize_resume_content .close_button .close_stick_button{
+.finalize_resume_content .close_button .close_stick_button {
     position: absolute;
     display: block;
     width: 26px;
@@ -542,17 +547,17 @@ hr {
     border-radius: 3px;
 }
 
-.finalize_resume_content .close_button .close_stick_button:nth-child(1){
+.finalize_resume_content .close_button .close_stick_button:nth-child(1) {
     transform: rotate(45deg);
 }
 
-.finalize_resume_content .close_button .close_stick_button:nth-child(2){
+.finalize_resume_content .close_button .close_stick_button:nth-child(2) {
     transform: rotate(-45deg);
 }
 
-.finalize_resume_content .item_resume{
+.finalize_resume_content .item_resume {
     display: flex;
-    justify-content: space-between;  
+    justify-content: space-between;
     width: 100%;
     height: auto;
     padding: 0 5px;
@@ -560,7 +565,7 @@ hr {
     margin-bottom: 10px;
 }
 
-.finalize_resume_content .item_empty{
+.finalize_resume_content .item_empty {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -571,54 +576,55 @@ hr {
     text-align: center;
 }
 
-.finalize_resume_content .item_resume .item_name{
+.finalize_resume_content .item_resume .item_name {
     width: calc(100% - 128px);
     min-width: 120px;
     line-height: 30px;
     padding-right: 3px;
 }
 
-.finalize_resume_content .item_resume .item_value{
+.finalize_resume_content .item_resume .item_value {
     min-width: 70px;
     line-height: 30px;
 }
 
-.finalize_resume_content .item_resume .item_qtde{
+.finalize_resume_content .item_resume .item_qtde {
     display: flex;
     padding-right: 10px;
 }
 
-.finalize_resume_content .item_resume .remove_item{
+.finalize_resume_content .item_resume .remove_item {
     display: flex;
     width: 24px;
     height: 24px;
     background: none;
 }
 
-.finalize_resume_content .item_resume .item_qtde button, .finalize_resume_content .item_resume .item_qtde input{
+.finalize_resume_content .item_resume .item_qtde button,
+.finalize_resume_content .item_resume .item_qtde input {
     width: 24px;
     height: 24px;
     text-align: center;
 }
 
-.finalize_resume_content .item_resume .item_qtde button{
+.finalize_resume_content .item_resume .item_qtde button {
     background-color: #000;
     color: #fff;
     font-size: 1rem;
 }
 
-.finalize_resume_content .item_resume .item_qtde button:disabled{
+.finalize_resume_content .item_resume .item_qtde button:disabled {
     background: rgba(0, 0, 0, 0.3);
 }
 
-.finalize_resume_content .total_value{
+.finalize_resume_content .total_value {
     width: 100%;
     text-align: right;
     padding: 0 10px;
     font-size: 1.1rem;
 }
 
-.finalize_resume_content .pay_methods{
+.finalize_resume_content .pay_methods {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -631,11 +637,11 @@ hr {
     border-bottom: 2px solid #000;
 }
 
-.finalize_resume_content .pay_methods ul{
+.finalize_resume_content .pay_methods ul {
     list-style: none;
 }
 
-.finalize_resume_content .user{
+.finalize_resume_content .user {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -643,7 +649,7 @@ hr {
     padding: 0 5px;
 }
 
-.finalize_resume_content .delivery_option{
+.finalize_resume_content .delivery_option {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
@@ -653,33 +659,33 @@ hr {
     border-bottom: 2px solid #000;
 }
 
-.finalize_resume_content .delivery_option .address{
+.finalize_resume_content .delivery_option .address {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     height: 190px;
     font-size: 1.1rem;
     margin: 5px 0;
-    padding: 5px 0  ;
+    padding: 5px 0;
 }
 
-.finalize_resume_content .delivery_option .address .address_input:disabled{
+.finalize_resume_content .delivery_option .address .address_input:disabled {
     background: rgba(0, 0, 0, 0.3);
 }
 
-.finalize_resume_content .delivery_option .radio_delivery{
+.finalize_resume_content .delivery_option .radio_delivery {
     height: 30px;
     margin-right: 5px;
 }
 
-.finalize_resume_content .delivery_option h3{
+.finalize_resume_content .delivery_option h3 {
     width: 90%;
     height: 30px;
     margin: 0 0 10px 0;
     line-height: 30px;
 }
 
-.finalize_resume_content .address .cep{
+.finalize_resume_content .address .cep {
     width: 50%;
     height: 30px;
     margin-right: 5%;
@@ -689,7 +695,7 @@ hr {
     margin-bottom: 5px;
 }
 
-.finalize_resume_content .address .estado{
+.finalize_resume_content .address .estado {
     width: 15%;
     height: 30px;
     margin-right: 5%;
@@ -700,7 +706,7 @@ hr {
     text-align: center;
 }
 
-.finalize_resume_content .address .numero{
+.finalize_resume_content .address .numero {
     align-self: flex-end;
     width: 25%;
     height: 30px;
@@ -710,7 +716,11 @@ hr {
     margin-bottom: 5px;
 }
 
-.finalize_resume_content .user .name_input, .finalize_resume_content .user .tel_input, .finalize_resume_content .address .logradouro, .finalize_resume_content .address .cidade, .finalize_resume_content .address .bairro{
+.finalize_resume_content .user .name_input,
+.finalize_resume_content .user .tel_input,
+.finalize_resume_content .address .logradouro,
+.finalize_resume_content .address .cidade,
+.finalize_resume_content .address .bairro {
     width: 100%;
     height: 30px;
     font-size: 1rem;
@@ -719,7 +729,7 @@ hr {
     margin-bottom: 5px;
 }
 
-.finalize_resume_content .finalize_button{
+.finalize_resume_content .finalize_button {
     position: relative;
     width: 98%;
     height: 40px;
@@ -729,7 +739,7 @@ hr {
     border-radius: 5px;
 }
 
-.finalize_resume_content .finalize_button .alert_finalize::before{
+.finalize_resume_content .finalize_button .alert_finalize::before {
     content: "";
     width: 0;
     height: 0;
@@ -741,7 +751,7 @@ hr {
     left: 10px;
 }
 
-.finalize_resume_content .finalize_button .alert_finalize{
+.finalize_resume_content .finalize_button .alert_finalize {
     display: block;
     position: absolute;
     background-color: rgba(255, 0, 0, 1);
@@ -768,20 +778,20 @@ hr {
     left: 11px;
 }
 
-.alert_finalize_show{
+.alert_finalize_show {
     opacity: 1 !important;
     z-index: 9999 !important;
 }
- 
-.required_field{
-     background-color: rgb(250, 191, 2, 0.5) ; 
+
+.required_field {
+    background-color: rgb(250, 191, 2, 0.5);
 }
 
-.finalize_resume_content .finalize_button a{
+.finalize_resume_content .finalize_button a {
     display: block;
     width: 100%;
     height: 36px;
-    text-decoration: none; 
+    text-decoration: none;
     text-align: center;
     line-height: 36px;
     color: #000;
@@ -902,7 +912,7 @@ footer .tel {
         align-self: flex-start;
     }
 
-    .map_area{
+    .map_area {
         padding: 20px;
     }
 
@@ -921,45 +931,45 @@ footer .tel {
         font-size: 0.8rem;
     }
 
-    .finalize_order h3{
+    .finalize_order h3 {
         font-size: 1.15rem;
     }
 
-    .finalize_resume_content h3{
+    .finalize_resume_content h3 {
         font-size: 1.30rem;
     }
 
-    .finalize_resume_content .item_resume{
+    .finalize_resume_content .item_resume {
         padding: 0 20px;
         font-size: 1.25rem;
     }
 
-    .finalize_resume_content .item_resume .item_qtde button{
+    .finalize_resume_content .item_resume .item_qtde button {
         width: 30px;
         height: 30px;
     }
 
-    .finalize_resume_content .item_resume .item_qtde input{
+    .finalize_resume_content .item_resume .item_qtde input {
         width: 30px;
         height: 30px;
     }
 
-    .finalize_resume_content .item_resume .remove_item{
+    .finalize_resume_content .item_resume .remove_item {
         width: 30px;
         height: 30px;
     }
 
-    .finalize_resume_content .item_resume .remove_item img{
+    .finalize_resume_content .item_resume .remove_item img {
         width: 30px;
         height: 30px;
     }
 
-    .finalize_resume_content .total_value{
+    .finalize_resume_content .total_value {
         font-size: 1.25rem;
         padding: 0 20px
     }
 
-    .finalize_resume_content .item_empty{
+    .finalize_resume_content .item_empty {
         font-size: 1.25rem;
     }
 
@@ -968,31 +978,35 @@ footer .tel {
         padding: 5px 15px;
     }
 
-    .finalize_resume_content .user{
+    .finalize_resume_content .user {
         padding: 5px 15px;
     }
 
-    .finalize_resume_content .delivery_option{
+    .finalize_resume_content .delivery_option {
         padding: 5px 15px;
     }
 
-    .finalize_resume_content .user .name_input, .finalize_resume_content .user .tel_input, .finalize_resume_content .address .logradouro, .finalize_resume_content .address .cidade, .finalize_resume_content .address .bairro{
+    .finalize_resume_content .user .name_input,
+    .finalize_resume_content .user .tel_input,
+    .finalize_resume_content .address .logradouro,
+    .finalize_resume_content .address .cidade,
+    .finalize_resume_content .address .bairro {
         font-size: 1.1rem;
     }
 
-    .finalize_resume_content .address .cep{
+    .finalize_resume_content .address .cep {
         font-size: 1.1rem;
     }
 
-    .finalize_resume_content .address .estado{
+    .finalize_resume_content .address .estado {
         font-size: 1.1rem;
     }
 
-    .finalize_resume_content .address .numero{
+    .finalize_resume_content .address .numero {
         font-size: 1.1rem;
     }
 
-    .finalize_resume_content .finalize_button{
+    .finalize_resume_content .finalize_button {
         width: 96%;
     }
 
@@ -1000,7 +1014,7 @@ footer .tel {
         font-size: 1.2rem;
     }
 
-    .finalize_resume_content .finalize_button .alert_finalize{
+    .finalize_resume_content .finalize_button .alert_finalize {
         font-size: 0.9rem;
     }
 }

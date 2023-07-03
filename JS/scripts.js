@@ -1,8 +1,8 @@
 function menuHamburguerOpen() {
-    const hamburguerButton = document.getElementById('hamburguer_button');
-    const menuOpen = document.getElementById('main_menu');
-    const hamburguerStick = document.getElementsByClassName('hamburguer_stick');
-    const content_click_block = document.getElementById('menu_click_block');
+    const hamburguerButton = document.querySelector('#hamburguer_button');
+    const menuOpen = document.querySelector('#main_menu');
+    const hamburguerStick = document.querySelectorAll('.hamburguer_stick');
+    const content_click_block = document.querySelector('#menu_click_block');
     hamburguerButton.classList.toggle('hamburguer_button_close');
     menuOpen.classList.toggle('hamburguer_open');
     content_click_block.classList.toggle('menu_click_block');
@@ -14,12 +14,12 @@ function menuHamburguerOpen() {
 }
 
 function expandButtonAnimationOnClick() {
-    const productSelection = document.getElementsByClassName('product_selection');
+    const productSelection = document.querySelectorAll('.product_selection');
     for (let i = 0; i < productSelection.length; i++) {
         const expandButton = productSelection[i].querySelector('#expand_button');
 
         expandButton.addEventListener('click', function () {
-            expandButtonStick = productSelection[i].getElementsByClassName('expand_stick');
+            expandButtonStick = productSelection[i].querySelectorAll('.expand_stick');
             expandButtonStick[0].classList.toggle('close_expand_stick');
 
             productList = productSelection[i].querySelector('#product_list');
@@ -45,8 +45,8 @@ function topReturn() {
 
 function productCheck() {
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    const finalizeOrderDiv = document.getElementById('finalize_order');
-    const productNumberDiv = document.getElementById('product_number');
+    const finalizeOrderDiv = document.querySelector('#finalize_order');
+    const productNumberDiv = document.querySelector('#product_number');
     let productNumber = 0;
 
     checkboxes.forEach((checkbox) => {
@@ -75,10 +75,10 @@ function finalizeButtonPosition() {
     const documentHeight = document.documentElement.scrollHeight
 
     if (scrollPosition + windowHeight >= documentHeight) {
-        document.getElementById('finalize_order').classList.add('finalize_order_footer_up');
+        document.querySelector('#finalize_order').classList.add('finalize_order_footer_up');
     }
     else {
-        document.getElementById('finalize_order').classList.remove('finalize_order_footer_up');
+        document.querySelector('#finalize_order').classList.remove('finalize_order_footer_up');
     }
 }
 
@@ -119,10 +119,10 @@ function resumeFinalize() {
         divElement.querySelector(".item_name").textContent = nameItem;
         divElement.querySelector(".item_value").textContent = valueItem;
 
-        resumeOrderContent.insertBefore(divElement, document.getElementById('total_value'))
+        resumeOrderContent.insertBefore(divElement, document.querySelector('#total_value'))
     }
 
-    const itens_qtde = document.getElementsByClassName('item_qtde')
+    const itens_qtde = document.querySelectorAll('.item_qtde')
     let itens = resumeOrder.querySelectorAll('.item_resume')
 
     Array.from(itens_qtde).forEach(item => {
@@ -159,14 +159,14 @@ function resumeFinalize() {
                 let divElement = document.createElement("div");
                 divElement.classList.add('no_item');
                 divElement.innerHTML = '<p class="item_empty">Sem itens no seu Pedido</p>';
-                resumeOrderContent.insertBefore(divElement, document.getElementById('total_value'));
+                resumeOrderContent.insertBefore(divElement, document.querySelector('#total_value'));
             }
         })
     });
 
     calculateTotal(itens);
 
-    const radioButtons = document.getElementsByClassName('radio_method');
+    const radioButtons = document.querySelectorAll('.radio_method');
 
     Array.from(radioButtons).forEach(radioButton => {
         radioButton.addEventListener('click', () => {
@@ -177,8 +177,8 @@ function resumeFinalize() {
         });
     });
 
-    const deliveryOptionRadios = document.getElementsByClassName('radio_delivery');
-    const addressInputs = document.getElementsByClassName('address_input');
+    const deliveryOptionRadios = document.querySelectorAll('.radio_delivery');
+    const addressInputs = document.querySelectorAll('.address_input');
 
     for (let i = 0; i < deliveryOptionRadios.length; i++) {
         deliveryOptionRadios[i].addEventListener('click', () => {
@@ -231,7 +231,8 @@ function userNameValidation() {
 }
 
 function userTelValidation() {
-    let tel = document.getElementById('tel_input');
+    const alert = document.querySelector('.alert_finalize');
+    let tel = document.querySelector('#tel_input');
 
     tel.value = tel.value.replace(/\D/g, '')
     tel.value = tel.value.replace(/(\d{2})(\d)/, "($1) $2")
@@ -239,10 +240,29 @@ function userTelValidation() {
     if(tel.classList.contains('required_field')){
         tel.classList.remove('required_field')
     }
+    
+    document.querySelector('#tel_input').addEventListener('focusout', () => {
+        if(!(document.activeElement === tel) && (tel.value.length < 15)){
+            alert.textContent = "Insira um telefone celular valido"
+            alert.classList.add('alert_finalize_show');
+            setTimeout(() => {
+                alert.classList.remove('alert_finalize_show');
+            }, 2000);
+        }
+    })
+    document.querySelector('#tel_input').addEventListener('touchend', () => {
+        if(!(document.activeElement === tel) && (tel.value.length < 15)){
+            alert.textContent = "Insira um telefone celular valido"
+            alert.classList.add('alert_finalize_show');
+            setTimeout(() => {
+                alert.classList.remove('alert_finalize_show');
+            }, 2000);
+        }
+    })
 }
 
 async function zipSearch() {
-    const cep = document.getElementById('cep').value;
+    const cep = document.querySelector('#cep').value;
 
     if (cep.length === 0) {
         clearAddress();
@@ -254,7 +274,7 @@ async function zipSearch() {
             const address = await dados.json();
             if (address.hasOwnProperty('erro')) {
                 clearAddress();
-                document.getElementById('logradouro').value = 'CEP não encontrado';
+                document.querySelector('#logradouro').value = 'CEP não encontrado';
             }
             else {
                 fillAddress(address)
@@ -262,28 +282,28 @@ async function zipSearch() {
         }
         else {
             clearAddress();
-            document.getElementById('logradouro').value = 'CEP não valido';
+            document.querySelector('#logradouro').value = 'CEP não valido';
         }
     }
 }
 
 function fillAddress(address) {
-    document.getElementById('logradouro').value = address.logradouro;
-    document.getElementById('estado').value = address.uf;
-    document.getElementById('bairro').value = address.bairro;
-    document.getElementById('cidade').value = address.localidade;
+    document.querySelector('#logradouro').value = address.logradouro;
+    document.querySelector('#estado').value = address.uf;
+    document.querySelector('#bairro').value = address.bairro;
+    document.querySelector('#cidade').value = address.localidade;
 }
 
 function clearAddress() {
-    document.getElementById('numero').value = '';
-    document.getElementById('logradouro').value = '';
-    document.getElementById('estado').value = '';
-    document.getElementById('bairro').value = '';
-    document.getElementById('cidade').value = '';
+    document.querySelector('#numero').value = '';
+    document.querySelector('#logradouro').value = '';
+    document.querySelector('#estado').value = '';
+    document.querySelector('#bairro').value = '';
+    document.querySelector('#cidade').value = '';
 }
 
 function zipCodeValidation() {
-    let cep = document.getElementById('cep');
+    let cep = document.querySelector('#cep');
 
     cep.value = cep.value.replace(/\D/g, '')
     cep.value = cep.value.replace(/(\d{5})(\d)/, '$1-$2')
@@ -291,7 +311,7 @@ function zipCodeValidation() {
 }
 
 function numberAddressValidation(){
-    let numero = document.getElementById('numero');
+    let numero = document.querySelector('#numero');
 
     numero.value = numero.value.replace(/\D/g, '');
     numero.value = numero.value.replace(/(\d{5})(\d)/, '$1-$2');
@@ -320,9 +340,8 @@ function finalizeOrder() {
         setTimeout(() => {
             alert.classList.remove('alert_finalize_show');
         }, 2000);
-
     }
-    else if(userName.value === '' || userTel.value === ''){
+    else if(userName.value === '' || userTel.value === '' || userTel.value.length < 15){
         alert.textContent = "Por favor preencha suas informações corretamente!"
         alert.classList.add('alert_finalize_show');
         setTimeout(() => {
@@ -343,7 +362,7 @@ function finalizeOrder() {
             userTel.classList.remove('required_field');
         }
     }
-    else if(cep.value === '' || numero.value === ''){
+    else if(cep.value === '' || numero.value === '' || logradouro.value === 'CEP não valido'){
         alert.textContent = "Por favor preencha seu endereço corretamente!"
         alert.classList.add('alert_finalize_show');
         setTimeout(() => {
@@ -389,16 +408,16 @@ function finalizeOrder() {
 
 document.addEventListener('DOMContentLoaded', expandButtonAnimationOnClick);
 document.addEventListener('DOMContentLoaded', productCheck);
-document.getElementById('hamburguer_button').addEventListener('click', menuHamburguerOpen);
-document.getElementById('menu_click_block').addEventListener('click', menuHamburguerOpen);
-document.getElementById('button_top_return').addEventListener('click', topReturn);
-document.getElementById('order_button').addEventListener('click', resumeFinalize);
-document.getElementById('close_button').addEventListener('click', closeResume);
-document.getElementById('finalize_button').addEventListener('click', finalizeOrder);
-document.getElementById('name_input').addEventListener('input', userNameValidation)
-document.getElementById('tel_input').addEventListener('input', userTelValidation)
-document.getElementById('cep').addEventListener('focusout', zipSearch);
-document.getElementById('cep').addEventListener('touchend', zipSearch);
-document.getElementById('cep').addEventListener('input', zipCodeValidation);
-document.getElementById('numero').addEventListener('input', numberAddressValidation);
+document.querySelector('#hamburguer_button').addEventListener('click', menuHamburguerOpen);
+document.querySelector('#menu_click_block').addEventListener('click', menuHamburguerOpen);
+document.querySelector('#button_top_return').addEventListener('click', topReturn);
+document.querySelector('#order_button').addEventListener('click', resumeFinalize);
+document.querySelector('#close_button').addEventListener('click', closeResume);
+document.querySelector('#finalize_button').addEventListener('click', finalizeOrder);
+document.querySelector('#name_input').addEventListener('input', userNameValidation)
+document.querySelector('#tel_input').addEventListener('input', userTelValidation)
+document.querySelector('#cep').addEventListener('focusout', zipSearch);
+document.querySelector('#cep').addEventListener('touchend', zipSearch);
+document.querySelector('#cep').addEventListener('input', zipCodeValidation);
+document.querySelector('#numero').addEventListener('input', numberAddressValidation);
 window.addEventListener('scroll', finalizeButtonPosition);
