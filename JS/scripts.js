@@ -321,18 +321,16 @@ function numberAddressValidation(){
 function finalizeOrder() {
     const alert = document.querySelector('.alert_finalize');
     const products = document.querySelectorAll('.item_resume');
-    const payMethod = document.querySelector('.radio_method:checked');
+    const payMethod = document.querySelector('.radio_method:checked').closest('.method').textContent;
     const userName = document.querySelector('#name_input');
     const userTel = document.querySelector('#tel_input');
     const deliveryMethod = document.querySelector('.radio_delivery:checked')
     const cep = document.querySelector('#cep');
-    const estado = document.querySelector('#estado');
     const logradouro = document.querySelector('#logradouro');
     const numero = document.querySelector('#numero');
     const bairro = document.querySelector('#bairro');
     const cidade = document.querySelector('#cidade');
-    let productsData = [];
-    let i = 0;
+    let messageOrder = '';
 
     if (products.length < 1) {
         alert.textContent = "Não há produtos no pedido!"
@@ -384,25 +382,27 @@ function finalizeOrder() {
         }
     }
     else {
+        messageOrder = `Olá me chamo ${userName.value} e gostaria de fazer o seguinte pedido: \n`
+
         products.forEach(product => {
-            const product_name = product.querySelector('.item_name').textContent;
-            const product_value = product.querySelector('.item_value').textContent.replace(/\D{2}/, '').replace(',', '.') * 1;
+            const product_name = product.querySelector('.item_name').textContent.replace(':', '');
             const product_qtde = product.querySelector('.item_qtde').querySelector('#qtde').value * 1;
-            const product_total_value = 'R$' + (product_value * product_qtde).toFixed(2)
 
-            productsData.push([product_name, product_value.toFixed(2).replace('.', ','), product_qtde, product_total_value.replace('.', ',')]);
-            i++;
+            messageOrder += `${product_qtde}x ${product_name} \n`;
         })
+        
+        const total_order_value = document.querySelector('#total_value').textContent;
 
-        console.log(productsData[0]);
-        console.log(payMethod.closest('.method').textContent.trim().replace(/[\r\n]+/g, ''))
+        messageOrder += `${total_order_value} \nMetodo de pagamento: ${payMethod.trim()} \n` ;
 
         if (deliveryMethod.id === 'entrega') {
-            console.log(cep, estado, logradouro, numero, bairro, cidade)
+            messageOrder += `Para o seguinte endereço: \n${logradouro.value} ${numero.value} \n${bairro.value} ${cidade.value} \n${cep.value}`;
         }
         else {
-            console.log('Retirada no Local')
+            messageOrder += 'Retirada no Local';
         }
+
+        window.open(`https://api.whatsapp.com/send?phone=5519971042734&text=${encodeURI(messageOrder)}&app_absent=1`, '_blank').focus()
     }
 }
 
